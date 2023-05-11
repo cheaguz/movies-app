@@ -1,0 +1,41 @@
+
+:root  {
+   transition:all .5s ease-in-out;
+  font-family: 'Noto Sans', sans-serif;  
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0F171E;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.pagination {
+  justify-content: center;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+}
+
+.page-link {
+  display: block;
+  border: 0.5px solid #cccccca8;
+  border-radius: 5px;
+  padding: 2px 8px;
+  margin: 0 2px;
+  text-decoration: none;
+}
+
+a.page-link:hover {
+  background-color: #3a6080;
+}
+
+.page-item.active .page-link {
+  color: #ffffff;
+  background-color: #213444;
+}
+
