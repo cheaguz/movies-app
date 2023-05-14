@@ -8,7 +8,7 @@ import { Movie } from '../interfaces/Movie';
 import { TvShow } from '../interfaces/TvShow';
 import ResponsivePagination from 'react-responsive-pagination';
 
-import { SimpleGrid , GridItem,Container } from '@chakra-ui/react'
+import { SimpleGrid , GridItem,Container, useMediaQuery } from '@chakra-ui/react'
 
 
 export const Busqueda = () => {
@@ -20,6 +20,7 @@ export const Busqueda = () => {
     const [tvShows , setTvShows] = useState<TvShow[]>()
     const [pages , setPages] = useState<number>(0)
     const [totalPages , setTotalPages] = useState<number>(0)
+    const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
     useEffect(()=> {
         if(type==='all'){
@@ -129,7 +130,7 @@ export const Busqueda = () => {
         {type !='tv-categories' && 
         <>
             <h1>Peliculas</h1>
-            <SimpleGrid columns={3} spacing={10}>
+            <SimpleGrid columns={isLargerThan800?3 : 2} spacing={10}>
             {movies?.map( (movie:Movie) => (
                
                     <Card  
@@ -150,7 +151,7 @@ export const Busqueda = () => {
             {type!='movie-categories' && 
             <>
                 <h1>Series</h1>
-            <SimpleGrid  columns={3} spacing={10}>
+            <SimpleGrid  columns={isLargerThan800?3 : 2} spacing={10}>
             {tvShows?.map( (tv:TvShow) => (
             
             <Card  

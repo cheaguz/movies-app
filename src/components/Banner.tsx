@@ -9,19 +9,18 @@ import styled from "styled-components";
 
 import ReactPlayer from "react-player";
 
-import  useScreenSize  from '../utils/useScreenSize'
-
+import { useMediaQuery } from "@chakra-ui/react";
 export const Banner = () => {
- /*  const { width } = useScreenSize();
-  console.log(width) */
+
   
   const [visible, setVisible] = useState(true);
+  const [isLargerThan1200] = useMediaQuery('(min-width: 1200px)')
   return (
     <>
       <Carousel showStatus={false} showThumbs={false} autoPlay infiniteLoop>
         {banners.map((b: BannerInterface) => (
           <div
-            onMouseEnter={() => setVisible(false)}
+            onMouseEnter={() => setVisible(isLargerThan1200? false : true)}
             onMouseLeave={() => setVisible(true)}
           >
             { visible?  (

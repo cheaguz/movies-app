@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { StyledTitle,StyledText,StyledP } from './Styled';
 
-import { Box, SimpleGrid } from '@chakra-ui/react';
+import { Box, SimpleGrid, useMediaQuery } from '@chakra-ui/react';
 import { validateText } from '../utils/validateText';
 import { imgError } from '../utils/imgError';
 import { BsStar, BsStarFill } from 'react-icons/bs';
@@ -28,10 +28,10 @@ export const Overwiev = ({title,overview,genres,release_date,runtime,vote_count,
     backdrop_path : string,
    
 }) => {
-
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
   return (
     <Box boxShadow={'dark-lg'} w={'100%'} alignItems={'center'} p={'1%'} display={'flex'} color={'rgba(255, 255, 255, 0.87)'} bg={'#0f171e'}>
-      <SimpleGrid columns={2} alignContent={'center'} alignItems={'center'} textAlign="center">
+      <SimpleGrid columns={isLargerThan800? 2 : 1} alignContent={'center'} alignItems={'center'} textAlign="center">
     <div>
       <StyledTitle>{validateText(title)}</StyledTitle>
       <StyledText>{validateText(overview)}</StyledText>

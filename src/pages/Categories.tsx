@@ -14,6 +14,7 @@ import {
   MenuList,
   MenuItem,
   MenuGroup,
+  useMediaQuery
 } from "@chakra-ui/react";
 import styled from "styled-components";
 
@@ -27,6 +28,8 @@ export const Categories = () => {
   const [categories, setCategories] = useState<Categories[]>();
   const [tvCategories, setTvCategories] = useState<Categories[]>();
   const [isOpen, setisOpen] = useState(false);
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
+
 
   useEffect(() => {
     getCategories()
@@ -65,7 +68,7 @@ export const Categories = () => {
           <MenuList bg={"#1B252F"} border="none">
            {/*  <SimpleGrid columns={2}> */}
               <MenuGroup title="Peliculas">
-                <SimpleGrid columns={4}>
+                <SimpleGrid columns={ isLargerThan800?4 : 2}>
                   {categories?.map((cat) => (
                     <MenuItem _hover={{ color: " #91919D" }} bg={"#1B252F"} onClick={()=>handleCategories(cat.id)}>
                       {cat.name}
@@ -74,7 +77,7 @@ export const Categories = () => {
                 </SimpleGrid>
               </MenuGroup>
               <MenuGroup title="Series">
-                <SimpleGrid columns={4}>
+                <SimpleGrid columns={ isLargerThan800?4 : 2}>
                   {tvCategories?.map((t) => (
                     <MenuItem _hover={{ color: " #91919D" }} bg={"#1B252F"} onClick={()=>handleCategories(t.id,true)}>
                       {t.name}

@@ -16,7 +16,7 @@ import {
 import Glider from "react-glider";
 import { Carousel } from "react-responsive-carousel";
 import ReactPlayer from "react-player";
-import { SimpleGrid,Container,Box,} from "@chakra-ui/react";
+import { SimpleGrid,Container,Box,useMediaQuery} from "@chakra-ui/react";
 
 import { Movie } from "../interfaces/Movie";
 import { CommentsInterface } from "../interfaces/CommentsInterface";
@@ -37,6 +37,7 @@ export const MovieDetails = () => {
   const [videos, setVideos] = useState<Videos[]>([]);
   const [loader, setLoader] = useState(true);
   const [comments, setComments] = useState<CommentsInterface[]>([]);
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
   interface Credits {
     profile_path: string;
@@ -176,7 +177,24 @@ export const MovieDetails = () => {
           <h1>Similar movies</h1>
 
           <div>
-            <Glider draggable slidesToShow={5} slidesToScroll={3}>
+            <Glider
+             draggable
+             responsive={[
+              {
+                breakpoint: 800,
+                settings: {
+                  slidesToShow: 5,
+                },
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                },
+              },
+            ]}
+              slidesToShow={2}
+               slidesToScroll={3}>
               {similarMovies?.map((m: Movie) => (
                 <Card
                   key={m.id}

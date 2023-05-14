@@ -5,13 +5,14 @@ const IMAGE_PATH = import.meta.env.VITE_IMG_PATH;
 import { Loader } from "../components/Loader";
 import { validateText } from '../utils/validateText'
 
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid,Box , Image , useMediaQuery, Text  } from "@chakra-ui/react";
 
 export const Actors = () => {
   const navigate = useNavigate();
   const [actor, setActor] = useState <Actors>({});
   const { actorID } = useParams();
   const [loader, setLoader] = useState(true);
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
 interface Actors{
   name:string
@@ -37,7 +38,7 @@ interface Actors{
   }, []);
 
   const validateGender = (G : number) => {
-      if(G===1){
+      if(G===0){
         return 'woman'
       }else {
         return 'man'
@@ -47,31 +48,29 @@ interface Actors{
   
 
   return (
-    <div>
+    <Box bg={'#0F171E'} color={'#fff'}>
       {loader ? (
         <Loader open={loader} />
       ) : (
-        <SimpleGrid columns={2}>
-          <div>
-          <button onClick={() => navigate(-1)}>{"<"}</button>
-          <p> nombre : {validateText(actor?.name) }</p>
-          <p>Genero : {validateGender (actor?.gender) }</p>
-          <p> Fecha de nacimiento : {actor?.birthday} </p>
-          <p>Fecha de muerte : {actor?.deathday}</p>
-          <p>profesion : {validateText( actor?.known_for_department )}</p>
-          <p>Lugar de nacimiento : {actor?.place_of_birth}</p>
-          <p>Web : {validateText(actor?.homepage)} </p>
-          <h1 style={{textAlign:'center'}}>Biografia</h1>
-          <p>{validateText(actor?.biography)}</p>
-          </div>
+        <SimpleGrid columns={ isLargerThan800? 2 : 1}>
+          <Box textAlign={'center'} alignItems={'center'} > 
+        {/*   <button onClick={() => navigate(-1)}>{"<"}</button> */}
+          <Text> Nombre : {validateText(actor?.name) }</Text>
+          <Text>Genero : {validateGender (actor?.gender) }</Text>
+          <Text> Fecha de nacimiento : {actor?.birthday} </Text>
+          <Text>Fecha de muerte : {actor?.deathday}</Text>
+          <Text>Profesion : {validateText( actor?.known_for_department )}</Text>
+          <Text>Lugar de nacimiento : {actor?.place_of_birth}</Text>
+          <Text>Web : {validateText(actor?.homepage)} </Text>
+          <Text >Biografia</Text>
+          <Text>{validateText(actor?.biography)}</Text>
+          </Box>
 
-          <div>
-          <img src={`${IMAGE_PATH}${actor?.profile_path}`} 
-            height={300}
-          />
-          </div>
+          <Box >
+          <Image  src={`${IMAGE_PATH}${actor?.profile_path}`} />
+          </Box>
         </SimpleGrid>
       )}
-    </div>
+    </Box>
   );
 };

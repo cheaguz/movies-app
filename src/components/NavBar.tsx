@@ -1,16 +1,29 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai'
+
 import styled from 'styled-components'
 import { Categories } from '../pages'
 
-import { Input, Button, Box  } from '@chakra-ui/react'
+import { 
+  Input,
+   Button,
+   Box ,
+   Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+  MenuOptionGroup,
+  MenuItemOption,
+useMediaQuery } from '@chakra-ui/react'
 
 export const NavBar = () => {
   const navigate = useNavigate();
   const [value , setValue] = useState<string>('');
   const [language , setLanguage] = useState('ES')
-
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
 
   const handleChange = (e:any) => {
     setValue(
@@ -39,18 +52,35 @@ export const NavBar = () => {
   <Header>
    
     <Box display={'flex'} p={2} alignItems={'center'} ml={'1%'}>
+          {isLargerThan800? 
+          <>
         <img src={'/vite.svg'} />
         <h1 style={{marginRight:'5%',fontFamily :"'Noto Sans', sans-serif"}}>ViteMovies</h1>
-        <ListContainer>
-            <Li onClick={()=>navigate('/')}>Inicio</Li>
-            <Li onClick={()=>navigate('/Series')}>Series</Li>
-            <Li onClick={()=>navigate('/Movies')}> Peliculas</Li>
-            <Categories /> 
-        </ListContainer>
+
+            <ListContainer>
+                <Li onClick={()=>navigate('/')}>Inicio</Li>
+                <Li onClick={()=>navigate('/Series')}>Series</Li>
+                <Li onClick={()=>navigate('/Movies')}> Peliculas</Li>
+                <Categories /> 
+            </ListContainer>
+            </>
+          :
+          <Menu >
+            <MenuButton as={Button} leftIcon={<AiOutlineMenu />}  variant='link'/>
+             
+            <MenuList bg={'#0F171E'}>
+              <MenuItem bg={'#0F171E'}><Li onClick={()=>navigate('/')}>Inicio</Li></MenuItem>
+              <MenuItem bg={'#0F171E'}><Li onClick={()=>navigate('/Series')}>Series</Li></MenuItem>
+              <MenuItem bg={'#0F171E'}><Li onClick={()=>navigate('/Movies')}> Peliculas</Li></MenuItem>
+              <Categories />
+             
+            </MenuList>
+        </Menu>
+        }
         </Box>
 
         
-          <ContainerInput >
+          <ContainerInput  >
             <Button onClick={handleSubmit} size='sm' variant='outline'>
               <Icon>< AiOutlineSearch /></Icon>
               </Button>
@@ -63,7 +93,7 @@ export const NavBar = () => {
               
             />
             </form>
-            <Span onClick={handleChangeLanguage} >{language}</Span>
+            {/* <Span onClick={handleChangeLanguage} >{language}</Span> */}
           </ContainerInput>
           
         
@@ -78,6 +108,7 @@ const ContainerInput = styled.div`
 display : flex;
 justify-content : center;
 align-items : center;
+margin-right : 2%;
 
 `;
 

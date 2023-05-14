@@ -2,7 +2,7 @@ import Glider from "react-glider";
 import "glider-js/glider.min.css";
 import { Movie } from "../interfaces/Movie";
 import { Card } from "../components/Card";
-import { Text } from "@chakra-ui/react";
+import { Text, useMediaQuery } from "@chakra-ui/react";
 
 export const Carrousell = ({
   movie,
@@ -13,6 +13,7 @@ export const Carrousell = ({
   text: string;
   tv?: boolean;
 }) => {
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
   return (
         <>
           <div
@@ -22,12 +23,13 @@ export const Carrousell = ({
             <Text fontSize={20}>{text}</Text>
             <Glider
               draggable
-              hasArrows
+              hasArrows={isLargerThan800?true : false}
               responsive={[
                 {
                   breakpoint: 768,
                   settings: {
                     slidesToShow: 5,
+                    
                   },
                 },
               ]}
